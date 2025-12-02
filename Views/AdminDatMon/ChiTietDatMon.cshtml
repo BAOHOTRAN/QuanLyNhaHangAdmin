@@ -1,0 +1,15 @@
+﻿@model QuanLyNhaHangAdmin.Models.DatMon
+@{
+    ViewData["Title"] = "Chi tiết đặt món";
+}
+
+<div class="mb-3"><strong>Mã:</strong> @Model.MaDatMon</div>
+<div class="mb-3"><strong>Đặt bàn:</strong> @(Model.DatBan?.MaDatBan ?? Model.MaDatBan ?? "-")</div>
+<div class="mb-3"><strong>Món ăn:</strong> @(Model.MonAn?.TenMon ?? Model.MaMon ?? "-")</div>
+<div class="mb-3"><strong>Loại món:</strong> @(Model.MonAn?.LoaiMonAn?.TenLoai ?? "-")</div>
+<div class="mb-3"><strong>Số lượng:</strong> @Model.SoLuong</div>
+<div class="mb-3"><strong>Ghi chú:</strong> @(string.IsNullOrEmpty(Model.GhiChu) ? "-" : Model.GhiChu)</div>
+
+<a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+<a asp-action="Edit" asp-route-id="@Model.MaDatMon" class="btn btn-primary">Sửa</a>
+

@@ -1,0 +1,40 @@
+﻿@model QuanLyNhaHangAdmin.Models.DatMon
+
+@{
+    ViewData["Title"] = "Sửa đặt món";
+}
+
+
+<form asp-action="SuaDatMon" method="post">
+    <input type="hidden" asp-for="MaDatMon" />
+
+    <div class="mb-3">
+        <label asp-for="MaDatBan" class="form-label"></label>
+        <select asp-for="MaDatBan" asp-items="ViewBag.DatBanList" class="form-select"></select>
+        <span asp-validation-for="MaDatBan" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="MaMon" class="form-label"></label>
+        <select asp-for="MaMon" asp-items="ViewBag.MonAnList" class="form-select"></select>
+        <span asp-validation-for="MaMon" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="SoLuong" class="form-label"></label>
+        <input asp-for="SoLuong" class="form-control" />
+        <span asp-validation-for="SoLuong" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="GhiChu" class="form-label"></label>
+        <textarea asp-for="GhiChu" class="form-control"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-success">Cập nhật</button>
+    <a asp-action="DanhSachDatMon" class="btn btn-secondary">Quay lại</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,49 @@
+﻿@model List<QuanLyNhaHangAdmin.Models.DatMon>
+
+@{
+    ViewData["Title"] = "Danh sách đặt món";
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<a asp-action="ThemDatMon" class="btn btn-primary mb-3">Thêm đặt món</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Mã đặt bàn</th>
+            <th>Món ăn</th>
+            <th>Số lượng</th>
+            <th>Ghi chú</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaDatBan</td>
+                <td>@item.MonAn?.TenMon</td>
+                <td>@item.SoLuong</td>
+                <td>@item.GhiChu</td>
+                <td>
+                    <a asp-action="SuaDatMon" asp-route-id="@item.MaDatMon" class="btn btn-warning btn-sm">Sửa</a>
+
+                    <form asp-action="XoaDatMon" asp-route-id="@item.MaDatMon" method="post"
+                          style="display:inline-block"
+                          onsubmit="return confirm('Bạn có chắc muốn xóa?');">
+
+                        <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

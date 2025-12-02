@@ -1,0 +1,51 @@
+@model QuanLyNhaHangAdmin.Models.DatBan
+@{
+    ViewBag.Title = "Sửa đặt bàn";
+}
+
+<form asp-action="SuaDatBan" method="post">
+    <input type="hidden" asp-for="MaDatBan" />
+    <div class="mb-3">
+        <label>Mã đặt bàn</label>
+        <input asp-for="MaDatBan" class="form-control" readonly />
+    </div>
+    <div class="mb-3">
+        <label>Khách hàng</label>
+        <select asp-for="MaKH" class="form-control" asp-items="ViewBag.KhachList">
+            <option value="">-- Chọn khách hàng --</option>
+        </select>
+        <span asp-validation-for="MaKH" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label>Bàn</label>
+        <select asp-for="MaBan" class="form-control" asp-items="ViewBag.BanList">
+            <option value="">-- Chọn bàn --</option>
+        </select>
+        <span asp-validation-for="MaBan" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label>Ngày đặt</label>
+        <input asp-for="NgayDat" type="date" class="form-control" />
+        <span asp-validation-for="NgayDat" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label>Giờ đặt</label>
+        <input asp-for="GioDat" type="time" class="form-control" />
+        <span asp-validation-for="GioDat" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label>Số người</label>
+        <input asp-for="SoNguoi" type="number" class="form-control" />
+        <span asp-validation-for="SoNguoi" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label>Ghi chú</label>
+        <textarea asp-for="GhiChu" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-warning">Cập nhật</button>
+    <a asp-action="DanhSachDatBan" class="btn btn-secondary">Hủy</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

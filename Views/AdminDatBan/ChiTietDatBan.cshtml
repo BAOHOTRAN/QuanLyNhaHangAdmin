@@ -1,0 +1,46 @@
+﻿@model QuanLyNhaHangAdmin.Models.DatBan
+@{
+    ViewBag.Title = "Chi tiết đặt bàn";
+}
+
+<div class="mb-3">
+    <label>Mã đặt bàn:</label>
+    <input class="form-control" value="@Model.MaDatBan" readonly />
+</div>
+
+<div class="mb-3">
+    <label>Khách hàng:</label>
+    <input class="form-control" value="@Model.KhachHang?.HoTen" readonly />
+</div>
+
+<div class="mb-3">
+    <label>Bàn:</label>
+    <input class="form-control" value="@Model.BanAn?.TenBan" readonly />
+</div>
+
+<div class="mb-3">
+    <label>Ngày đặt:</label>
+    <input class="form-control" value="@Model.NgayDat.ToString("yyyy-MM-dd")" readonly />
+</div>
+
+<div class="mb-3">
+    <label>Giờ đặt:</label>
+    <input class="form-control" value="@Model.GioDat.ToString(@"hh\:mm")" readonly />
+</div>
+
+<div class="mb-3">
+    <label>Số người:</label>
+    <input class="form-control" value="@Model.SoNguoi" readonly />
+</div>
+
+<div class="mb-3">
+    <label>Trạng thái:</label>
+    <input class="form-control" value="@Model.TrangThai" readonly />
+</div>
+
+<div class="mb-3">
+    <label>Ghi chú:</label>
+    <textarea class="form-control" readonly>@Model.GhiChu</textarea>
+</div>
+
+<a asp-action="DanhSachDatBan" class="btn btn-secondary">Quay lại</a>

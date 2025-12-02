@@ -1,0 +1,39 @@
+@model IEnumerable<QuanLyNhaHangAdmin.Models.DatBan>
+
+<h2>Danh sách đặt bàn</h2>
+
+<a asp-action="ThemDatBan" class="btn btn-primary mb-3">Thêm đặt bàn</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Mã đặt bàn</th>
+            <th>Ngày</th>
+            <th>Giờ</th>
+            <th>Bàn</th>
+            <th>Khách hàng</th>
+            <th>Số người</th>
+            <th>Trạng thái</th>
+            <th>Chức năng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaDatBan</td>
+                <td>@item.NgayDat.ToString("dd/MM/yyyy")</td>
+                <td>@item.GioDat.ToString(@"hh\:mm")</td>
+                <td>@item.BanAn?.TenBan</td>
+                <td>@item.KhachHang?.HoTen</td>
+                <td>@item.SoNguoi</td>
+                <td>@item.TrangThai</td>
+                <td>
+                    <a asp-action="ChiTietDatBan" asp-route-id="@item.MaDatBan" class="btn btn-info btn-sm">Chi tiết</a>
+                    <a asp-action="SuaDatBan" asp-route-id="@item.MaDatBan" class="btn btn-warning btn-sm">Sửa</a>
+                    <a asp-action="XoaDatBan" asp-route-id="@item.MaDatBan" class="btn btn-danger btn-sm">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,45 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model QuanLyNhaHangAdmin.Models.MonAn
+
+<h2>Xác nhận xóa món ăn</h2>
+
+<p>Bạn có chắc chắn muốn xóa món ăn này?</p>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Mã món</th>
+        <td>@Model.MaMon</td>
+    </tr>
+    <tr>
+        <th>Tên món</th>
+        <td>@Model.TenMon</td>
+    </tr>
+    <tr>
+        <th>Giá</th>
+        <td>@Model.Gia</td>
+    </tr>
+    <tr>
+        <th>Loại món</th>
+        <td>@Model.LoaiMonAn?.TenLoai</td>
+    </tr>
+    @if (!string.IsNullOrEmpty(Model.AnhMon))
+    {
+        <tr>
+            <th>Hình ảnh</th>
+            <td>
+                <img src="~/images/monan/@Model.AnhMon" alt="@Model.TenMon" style="max-width:200px;" />
+            </td>
+        </tr>
+    }
+</table>
+
+<form  asp-action="XoaMonAn" method="post">
+    <input type="hidden" asp-for="MaMon" />
+
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a  asp-action="DanhSachMonAn" class="btn btn-secondary">Hủy</a>
+</form>

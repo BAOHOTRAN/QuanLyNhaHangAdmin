@@ -1,0 +1,47 @@
+@model QuanLyNhaHangAdmin.Models.DatMon
+@{
+    ViewData["Title"] = "Tạo đặt món";
+}
+
+
+<form asp-action="ThemDatMon" method="post">
+    <div class="mb-3">
+        <label asp-for="MaDatBan" class="form-label"></label>
+        <select asp-for="MaDatBan" class="form-select" asp-items="ViewBag.DatBanList">
+            <option value="">-- Chọn đặt bàn --</option>
+        </select>
+        <small class="form-text text-muted">Chọn đặt bàn hiện có, bắt buộc.</small>
+        <span asp-validation-for="MaDatBan" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="MaMon" class="form-label"></label>
+        <select asp-for="MaMon" class="form-select" asp-items="ViewBag.MonAnList">
+            <option value="">-- Chọn món --</option>
+        </select>
+        <small class="form-text text-muted">Chọn món muốn đặt, bắt buộc.</small>
+        <span asp-validation-for="MaMon" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="SoLuong" class="form-label"></label>
+        <input asp-for="SoLuong" type="number" class="form-control" min="1"/>
+           <small class="form-text text-muted">Nhập số lượng món, phải ≥ 1.</small>
+        <span asp-validation-for="SoLuong" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="GhiChu" class="form-label"></label>
+        <textarea asp-for="GhiChu" class="form-control"></textarea>
+        <small class="form-text text-muted">Ghi chú thêm (không bắt buộc).</small>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Lưu</button>
+    <a asp-action="DanhSachDatMon" asp-controller="DatMon" class="btn btn-secondary">Hủy</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+

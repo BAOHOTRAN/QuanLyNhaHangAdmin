@@ -1,0 +1,39 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<QuanLyNhaHangAdmin.Models.MonAn>
+
+<h2>Danh sách món ăn</h2>
+
+<a  asp-action="ThemMonAn" class="btn btn-primary mb-3">Thêm món ăn</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Mã món</th>
+            <th>Tên món</th>
+            <th>Giá</th>
+            <th>Loại món</th>
+            <th>Chức năng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var mon in Model)
+        {
+            <tr>
+                <td>@mon.MaMon</td>
+                <td>@mon.TenMon</td>
+                <td>@mon.Gia</td>
+                <td>@mon.LoaiMonAn?.TenLoai</td>
+                <td>
+                    <a  asp-action="ChiTietMonAn" asp-route-id="@mon.MaMon" class="btn btn-info btn-sm">Chi tiết</a>
+                    <a  asp-action="SuaMonAn" asp-route-id="@mon.MaMon" class="btn btn-warning btn-sm">Sửa</a>
+                    <a  asp-action="XoaMonAn" asp-route-id="@mon.MaMon" class="btn btn-danger btn-sm">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

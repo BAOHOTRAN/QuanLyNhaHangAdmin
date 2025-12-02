@@ -1,0 +1,38 @@
+@model IEnumerable<QuanLyNhaHangAdmin.Models.DatMon>
+
+@{
+    ViewData["Title"] = "Danh sách đặt món";
+}
+<a asp-action="ThemDatMon" class="btn btn-primary mb-3">Thêm đặt món</a>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Mã đặt món</th>
+            <th>Bàn</th>
+            <th>Món ăn</th>
+            <th>Loại món</th>
+            <th>Số lượng</th>
+            <th>Ghi chú</th>
+            <th>Chức năng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaDatMon</td>
+                <td>@item.DatBan?.MaDatBan</td>
+                <td>@item.MonAn?.TenMon</td>
+                <td>@item.MonAn?.LoaiMonAn?.TenLoai</td>
+                <td>@item.SoLuong</td>
+                <td>@item.GhiChu</td>
+                <td>
+                    <a asp-action="ChiTietDatMon" asp-route-id="@item.MaDatMon" class="btn btn-info btn-sm">Chi tiết</a>
+                    <a asp-action="SuaDatMon" asp-route-id="@item.MaDatMon" class="btn btn-warning btn-sm">Sửa</a>
+                    <a asp-action="XoaDatMon" asp-route-id="@item.MaDatMon" class="btn btn-danger btn-sm">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

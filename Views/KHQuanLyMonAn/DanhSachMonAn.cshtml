@@ -1,0 +1,38 @@
+﻿@model List<QuanLyNhaHangAdmin.Models.MonAn>
+
+@{
+    ViewData["Title"] = "Danh sách Món Ăn";
+}
+
+<form method="get" asp-action="DanhSachMonAn" class="mb-3 d-flex gap-2">
+    <input type="text" name="timKiem" placeholder="Nhập tên món..." class="form-control w-25" />
+    <button class="btn btn-primary">Tìm</button>
+</form>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Mã món</th>
+            <th>Tên món</th>
+            <th>Loại</th>
+            <th>Giá</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var mon in Model)
+        {
+            <tr>
+                <td>@mon.MaMon</td>
+                <td>@mon.TenMon</td>
+                <td>@mon.LoaiMonAn?.TenLoai</td>
+                <td>@mon.Gia.ToString("C0")</td>
+                <td>
+                    <a asp-controller="KHQuanLyMon" asp-action="KHChiTietMonAn" asp-route-id="@mon.MaMon" class="btn btn-info btn-sm">
+                        Chi tiết
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,44 @@
+﻿@model QuanLyNhaHangAdmin.Models.DatMon
+
+@{
+    ViewData["Title"] = "Thêm đặt món";
+}
+
+<form asp-action="ThemDatMon" method="post">
+
+    <div class="mb-3">
+        <label class="form-label">Đặt bàn</label>
+        <select asp-for="MaDatBan" class="form-control" required>
+            <option value="">-- Chọn bàn --</option>
+            @foreach (var db in ViewBag.DanhSachDatBan)
+            {
+                <option value="@db.MaDatBan">@db.MaDatBan</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Món ăn</label>
+        <select asp-for="MaMon" class="form-control" required>
+            <option value="">-- Chọn món --</option>
+            @foreach (var mon in ViewBag.DanhSachMon)
+            {
+                <option value="@mon.MaMon">@mon.TenMon</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Số lượng</label>
+        <input asp-for="SoLuong" class="form-control" type="number" required min="1" />
+    </div>
+
+    <div class="mb-3">
+        <label>Ghi chú</label>
+        <input asp-for="GhiChu" class="form-control" />
+    </div>
+
+    <button class="btn btn-success">Lưu</button>
+    <a asp-action="DanhSachDatMon" class="btn btn-secondary">Quay lại</a>
+
+</form>

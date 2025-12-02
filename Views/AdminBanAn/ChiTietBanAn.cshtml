@@ -1,0 +1,36 @@
+﻿@model QuanLyNhaHangAdmin.Models.BanAn
+
+@{
+    ViewData["Title"] = "Chi Tiết Bàn Ăn";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Chi Tiết Bàn Ăn: @Model.MaBan</h2>
+
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th scope="row">Mã Bàn</th>
+                <td>@Model.MaBan</td>
+            </tr>
+            <tr>
+                <th scope="row">Tên Bàn</th>
+                <td>@Model.TenBan</td>
+            </tr>
+            <tr>
+                <th scope="row">Sức Chứa</th>
+                <td>@Model.SoCho</td>
+            </tr>
+            <tr>
+                <th scope="row">Trạng Thái</th>
+                <td>
+                    @Model.TrangThai
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="mt-3">
+        <a asp-action="DanhSachBanAn" class="btn btn-secondary">Quay lại danh sách</a>
+    </div>
+</div>

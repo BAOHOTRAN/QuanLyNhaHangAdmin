@@ -1,0 +1,66 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<QuanLyNhaHangAdmin.Models.MonAn>
+
+@{
+    ViewData["Title"] = "Tìm kiếm & Lọc món ăn";
+}
+
+<form method="get" class="row g-3 mb-3">
+    <div class="col-md-4">
+        <label class="form-label">Tên món</label>
+        <input type="text" name="tenMon" class="form-control" placeholder="Nhập tên món...">
+    </div>
+
+    <div class="col-md-3">
+        <label class="form-label">Giá từ</label>
+        <input type="number" name="giaTu" class="form-control" min="0">
+    </div>
+
+    <div class="col-md-3">
+        <label class="form-label">Giá đến</label>
+        <input type="number" name="giaDen" class="form-control" min="0">
+    </div>
+
+    <div class="col-md-2 d-flex align-items-end">
+        <button class="btn btn-primary w-100">Lọc</button>
+    </div>
+</form>
+
+@if (Model.Count == 0)
+{
+    <p class="text-danger">Không tìm thấy món nào phù hợp.</p>
+}
+else
+{
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Mã món</th>
+                <th>Tên món</th>
+                <th>Loại</th>
+                <th>Giá</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var mon in Model)
+            {
+                <tr>
+                    <td>@mon.MaMon</td>
+                    <td>@mon.TenMon</td>
+                    <td>@mon.LoaiMonAn?.TenLoai</td>
+                    <td>@mon.Gia.ToString("C0")</td>
+                    <td>
+                        <a asp-controller="KHQuanLyMonAn" asp-action="ChiTietMonAn" asp-route-id="@mon.MaMon" class="btn btn-info btn-sm">
+                            Chi tiết
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

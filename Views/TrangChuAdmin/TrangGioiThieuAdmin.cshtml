@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Trang quản trị";
+}
+
+<div class="container">
+    <h1 class="mt-4">Chào mừng đến với trang quản trị nhà hàng</h1>
+    <p>Ở đây bạn có thể quản lý Bàn Ăn, Loại Món Ăn, Món Ăn, Đặt Bàn và Đặt Món thông qua menu bên trái.</p>
+
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Bàn Ăn</h5>
+                    <p class="card-text">Quản lý thông tin bàn ăn trong nhà hàng.</p>
+                    <a asp-controller="BanAn" asp-action="Index" class="btn btn-light">Vào Bàn Ăn</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Loại Món Ăn</h5>
+                    <p class="card-text">Quản lý các loại món ăn.</p>
+                    <a asp-controller="LoaiMonAn" asp-action="DanhSachLoaiMonAn" class="btn btn-light">Vào Loại Món Ăn</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-white bg-warning mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Món Ăn</h5>
+                    <p class="card-text">Quản lý các món ăn cụ thể.</p>
+                    <a asp-controller="MonAn" asp-action="DanhSachMonAn" class="btn btn-light">Vào Món Ăn</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

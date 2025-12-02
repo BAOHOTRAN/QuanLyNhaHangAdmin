@@ -1,0 +1,26 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model QuanLyNhaHangAdmin.Models.DatMon
+
+@{
+    ViewData["Title"] = "Xóa đặt món";
+}
+
+<div class="alert alert-warning">
+    Bạn có chắc muốn xóa đặt món <strong>@Model.MaDatMon</strong>?
+</div>
+
+<div class="card p-4">
+    <p><strong>Bàn:</strong> @Model.DatBan?.MaDatBan</p>
+    <p><strong>Món ăn:</strong> @Model.MonAn?.TenMon</p>
+    <p><strong>Số lượng:</strong> @Model.SoLuong</p>
+</div>
+
+<form asp-action="XoaDatMon" method="post">
+    <input type="hidden" asp-for="MaDatMon" />
+    <button type="submit" class="btn btn-danger mt-3">Xóa</button>
+    <a asp-action="DanhSachDatMon" class="btn btn-secondary mt-3">Quay lại</a>
+</form>

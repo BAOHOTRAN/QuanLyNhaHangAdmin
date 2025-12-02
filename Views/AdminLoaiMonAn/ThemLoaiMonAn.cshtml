@@ -1,0 +1,39 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model QuanLyNhaHangAdmin.Models.LoaiMonAn
+
+@{
+    ViewData["Title"] = "Thêm Loại Món Ăn";
+}
+
+<h2>Thêm Loại Món Ăn</h2>
+
+<form asp-action="ThemLoaiMonAn" method="post">
+    <div class="mb-3">
+        <label asp-for="MaLoai" class="form-label">Mã loại</label>
+        <input asp-for="MaLoai" class="form-control" placeholder="VD: LM001" />
+        <span asp-validation-for="MaLoai" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="TenLoai" class="form-label">Tên loại</label>
+        <input asp-for="TenLoai" class="form-control" placeholder="Nhập tên loại món ăn" />
+        <span asp-validation-for="TenLoai" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="MoTa" class="form-label">Mô tả</label>
+        <textarea asp-for="MoTa" class="form-control" placeholder="Mô tả ngắn về loại món ăn"></textarea>
+        <span asp-validation-for="MoTa" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Thêm loại</button>
+    <a asp-action="DanhSachLoaiMonAn" class="btn btn-secondary">Hủy</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

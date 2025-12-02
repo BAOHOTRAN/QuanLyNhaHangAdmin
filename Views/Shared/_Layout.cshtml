@@ -1,0 +1,127 @@
+﻿@{
+    var currentRole = Context.Session.GetString("Role");
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - QuanLyNhaHangAdmin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        nav a.active {
+            background-color: #0d6efd;
+            color: #fff !important;
+            border-radius: 8px;
+        }
+
+        nav a:hover {
+            background-color: #495057;
+            color: #fff !important;
+        }
+
+        .sidebar {
+            width: 250px;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="d-flex">
+        @if (!string.IsNullOrEmpty(currentRole))
+        {
+            <nav class="bg-dark text-white flex-shrink-0 p-3 sidebar">
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4>@(currentRole == "Admin" ? "Admin Menu" : "Khách Hàng")</h4>
+                    <a asp-controller="Account" asp-action="Logout" class="btn btn-danger btn-sm">Đăng xuất</a>
+                </div>
+
+                <ul class="nav flex-column">
+
+                    @if (currentRole == "Admin")
+                    {
+                        <li class="nav-item">
+                            <a asp-controller="TrangChuAdmin" asp-action="TrangGioiThieuAdmin" class="nav-link text-white">Trang chủ Admin</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a asp-controller="AdminBanAn" asp-action="DanhSachBanAn" class="nav-link text-white">Quản lý Bàn Ăn</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a asp-controller="AdminLoaiMonAn" asp-action="DanhSachLoaiMonAn" class="nav-link text-white">Quản lý Loại Món Ăn</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a asp-controller="AdminMonAn" asp-action="DanhSachMonAn" class="nav-link text-white">Quản lý Món Ăn</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a asp-controller="AdminDatBan" asp-action="DanhSachDatBan" class="nav-link text-white">Quản lý Đặt Bàn</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a asp-controller="AdminDatMon" asp-action="DanhSachDatMon" class="nav-link text-white">Quản lý Đặt Món</a>
+                        </li>
+                    }
+
+                    @if (currentRole == "KhachHang")
+                    {
+                        <li class="nav-item">
+                            <a asp-controller="KHQuanLyMonAn" asp-action="TrangGioiThieuUser" class="nav-link text-white">Trang chủ</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a asp-controller="KHQuanLyMonAn" asp-action="DanhSachMonAn" class="nav-link text-white">Xem Món Ăn</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a asp-controller="KHQuanLyMonAn" asp-action="TimKiemMonAn" class="nav-link text-white">Tìm kiếm & lọc món</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a asp-controller="KHQuanLyDatMon" asp-action="DanhSachDatMon" class="nav-link text-white">Quản lý Đặt Món</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a asp-controller="KHQuanLyDatBan" asp-action="DanhSachDatBan" class="nav-link text-white">Quản lý Đặt Bàn</a>
+                        </li>
+                    }
+
+                </ul>
+            </nav>
+        }
+
+        <div class="flex-grow-1 p-3">
+            <header class="mb-4">
+                <h2>@ViewData["Title"]</h2>
+            </header>
+
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success">@TempData["Success"]</div>
+            }
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">@TempData["Error"]</div>
+            }
+
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/localization/messages_vi.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
