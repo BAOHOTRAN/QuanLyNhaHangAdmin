@@ -10,6 +10,49 @@
 *.userosscache
 *.sln.docstates
 
+# ASP.NET Core
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.pdb
+*.mdb
+*.log
+*.db
+*.jfm
+
+# Hiding application secrets
+appsettings.json
+appsettings.Development.json
+
+# IIS
+iisexpress/
+*.dbmdl
+
+# Visual Studio
+.vs/
+*.psess
+*.vsp
+*.vspscc
+*_i.c
+*_p.c
+*.ncb
+*.aps
+*.res
+*.ilk
+*.obj
+*.pch
+*.idb
+*.pdb
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+wwwroot/lib/
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
