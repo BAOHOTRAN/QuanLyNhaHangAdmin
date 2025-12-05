@@ -8,10 +8,10 @@ namespace QuanLyNhaHangAdmin.Models
     public class HoaDon
     {
         [Key, MaxLength(10)]
-        public string MaHD { get; set; }
+        public string MaHD { get; set; } = string.Empty;
 
         [MaxLength(5)]
-        public string? MaKH { get; set; }
+        public string? MaKH { get; set; } = string.Empty;
 
         [Required]
         public DateTime NgayLap { get; set; }

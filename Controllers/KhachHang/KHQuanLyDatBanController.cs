@@ -60,9 +60,12 @@ namespace QuanLyNhaHangAdmin.Controllers
                 return View(model);
             }
 
+            if (maKH == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             model.MaKH = maKH;
 
-    
             var last = _context.DatBans.OrderByDescending(x => x.MaDatBan).FirstOrDefault();
             int next = 1;
             if (last != null)
@@ -118,7 +121,10 @@ namespace QuanLyNhaHangAdmin.Controllers
                 ViewBag.MaBan = model.MaBan;
                 return View(model);
             }
-
+            if (maKH == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             model.MaKH = maKH;
 
             // Auto sinh mã

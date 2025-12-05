@@ -9,10 +9,10 @@ namespace QuanLyNhaHangAdmin.Models
     public class NhanVien
     {
         [Key, MaxLength(5)]
-        public string MaNV { get; set; } 
+        public string MaNV { get; set; } = string.Empty;
 
         [Required, MaxLength(50)]
-        public string HoTen { get; set; } 
+        public string HoTen { get; set; } = string.Empty;
 
         [MaxLength(10)]
         public string? GioiTinh { get; set; } 

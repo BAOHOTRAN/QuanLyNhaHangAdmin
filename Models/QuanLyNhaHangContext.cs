@@ -11,15 +11,15 @@ namespace QuanLyNhaHangAdmin.Data
         }
 
         // DbSets
-        public DbSet<BanAn> BanAns { get; set; }
-        public DbSet<LoaiMonAn> LoaiMonAns { get; set; }
-        public DbSet<MonAn> MonAns { get; set; }
-        public DbSet<DatBan> DatBans { get; set; }
-        public DbSet<DatMon> DatMons { get; set; }
-        public DbSet<KhachHang> KhachHangs { get; set; }
-        public DbSet<HoaDon> HoaDons { get; set; }
-        public DbSet<ChiTietHoaDon> ChiTietHoaDons { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<BanAn> BanAns { get; set; } = null!;
+        public DbSet<LoaiMonAn> LoaiMonAns { get; set; } = null!;
+        public DbSet<MonAn> MonAns { get; set; } = null!;
+        public DbSet<DatBan> DatBans { get; set; } = null!;
+        public DbSet<DatMon> DatMons { get; set; } = null!;
+        public DbSet<KhachHang> KhachHangs { get; set; } = null!;
+        public DbSet<HoaDon> HoaDons { get; set; } = null!;
+        public DbSet<ChiTietHoaDon> ChiTietHoaDons { get; set; } = null!;
+        public DbSet<User> Users { get; set; } = null!;
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

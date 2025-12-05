@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using QuanLyNhaHangAdmin.Data;
 using QuanLyNhaHangAdmin.Models;
-using System.Linq;
 
 namespace QuanLyNhaHangAdmin.Controllers.KhachHang
 {
@@ -21,47 +20,68 @@ namespace QuanLyNhaHangAdmin.Controllers.KhachHang
             return View();
         }
 
-        public IActionResult DanhSachMonAn(string timKiem = "")
+        public IActionResult DanhSachMonAn(string tenMon = "", decimal? giaTu = null, decimal? giaDen = null, string maLoai = "")
         {
+            // Load danh sách loại món
+            ViewBag.LoaiMonList = _context.LoaiMonAns.ToList();
+
+            // Query chính
             var ds = _context.MonAns
                              .Include(m => m.LoaiMonAn)
                              .AsQueryable();
 
-            if (!string.IsNullOrEmpty(timKiem))
-            {
-                ds = ds.Where(m => m.TenMon.Contains(timKiem));
-            }
-
-            return View("DanhSachMonAn", ds.ToList());
-        }
-
-        public IActionResult TimKiemMonAn(string tenMon = "", decimal? giaTu = null, decimal? giaDen = null)
-        {
-            var ds = _context.MonAns
-                             .Include(m => m.LoaiMonAn)
-                             .AsQueryable();
-
-            if (!string.IsNullOrEmpty(tenMon))
-                ds = ds.Where(m => m.TenMon.Contains(tenMon));
-
+            // Lọc giá
             if (giaTu.HasValue)
                 ds = ds.Where(m => m.Gia >= giaTu.Value);
 
             if (giaDen.HasValue)
                 ds = ds.Where(m => m.Gia <= giaDen.Value);
 
-            return View(ds.ToList());
+            // Lọc theo loại
+            if (!string.IsNullOrWhiteSpace(maLoai))
+                ds = ds.Where(m => m.MaLoai == maLoai);
+
+            // Tìm kiếm KHÔNG dấu + không phân biệt hoa thường
+            if (!string.IsNullOrWhiteSpace(tenMon))
+            {
+                string key = tenMon.Trim().ToLower();
+
+                ds = ds.Where(m =>
+                    EF.Functions.Collate(m.TenMon, "SQL_Latin1_General_CP1253_CI_AI")
+                    .ToLower()
+                    .Contains(key)
+                );
+            }
+
+            // Gửi lại giá trị lên View (giữ trạng thái)
+            ViewBag.TenMon = tenMon;
+            ViewBag.GiaTu = giaTu;
+            ViewBag.GiaDen = giaDen;
+            ViewBag.MaLoai = maLoai;
+
+            return View(ds.OrderBy(m => m.TenMon).ToList());
         }
-
-        public IActionResult ChiTietMonAn(string id)
+        [HttpGet]
+        public IActionResult GoiY(string term)
         {
-            var mon = _context.MonAns
-                              .Include(m => m.LoaiMonAn)
-                              .FirstOrDefault(m => m.MaMon == id);
+            if (string.IsNullOrWhiteSpace(term))
+                return Json(new List<string>());
 
-            if (mon == null) return NotFound();
+            string key = term.Trim().ToLower();
 
-            return View("ChiTietMonAn", mon);
+            var result = _context.MonAns
+                .Where(m =>
+                    EF.Functions.Collate(m.TenMon, "SQL_Latin1_General_CP1253_CI_AI")
+                    .ToLower()
+                    .Contains(key)
+                )
+                .Select(m => m.TenMon)
+                .Distinct()
+                .Take(8)
+                .ToList();
+
+            return Json(result);
         }
     }
 }
+

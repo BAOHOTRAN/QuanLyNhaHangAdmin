@@ -3,6 +3,9 @@ using QuanLyNhaHangAdmin.Data;
 using QuanLyNhaHangAdmin.Models;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+using System.Text;
+
 
 namespace QuanLyNhaHangAdmin.Controllers
 {
@@ -14,6 +17,20 @@ namespace QuanLyNhaHangAdmin.Controllers
         {
             _context = context;
         }
+        // Dùng tạm, không đủ bảo mật trong thực tế, sau này có thời gian thì nên bảo mật bằng phương pháp thêm mắm thêm muối 
+        private string HashPassword(string password)
+        {
+            using (var sha256 = SHA256.Create())
+            {
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                StringBuilder sb = new StringBuilder();
+                foreach (byte b in bytes)
+                {
+                    sb.Append(b.ToString("x2"));
+                }
+                return sb.ToString();
+            }
+        }
 
         [HttpGet]
         public IActionResult Register()
@@ -24,7 +41,8 @@ namespace QuanLyNhaHangAdmin.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid)
+                return View(model);
 
             if (model.Role == "Admin")
             {
@@ -41,7 +59,7 @@ namespace QuanLyNhaHangAdmin.Controllers
             var user = new User
             {
                 Username = model.Username,
-                Password = model.Password,
+                Password = HashPassword(model.Password),   
                 FullName = model.FullName,
                 Role = model.Role
             };
@@ -62,7 +80,8 @@ namespace QuanLyNhaHangAdmin.Controllers
         [HttpPost]
         public IActionResult Login(string username, string password)
         {
-            var user = _context.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
+            string hashed = HashPassword(password);
+            var user = _context.Users.FirstOrDefault(u => u.Username == username && u.Password == hashed);
             if (user == null)
             {
                 ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không đúng");

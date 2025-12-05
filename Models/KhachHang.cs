@@ -8,10 +8,10 @@ namespace QuanLyNhaHangAdmin.Models
         public class KhachHang
         {
             [Key, MaxLength(5)]
-            public string MaKH { get; set; }
+            public string MaKH { get; set; } = string.Empty;
 
             [Required, MaxLength(50)]
-            public string HoTen { get; set; }
+            public string HoTen { get; set; } = string.Empty;
 
             [MaxLength(10)]
             public string? GioiTinh { get; set; }
@@ -22,7 +22,7 @@ namespace QuanLyNhaHangAdmin.Models
             public string? Email { get; set; }
 
             [Required, MaxLength(15)]
-            public string SoDienThoai { get; set; }
+            public string SoDienThoai { get; set; } = string.Empty;
 
             [MaxLength(200)]
             public string? DiaChi { get; set; }

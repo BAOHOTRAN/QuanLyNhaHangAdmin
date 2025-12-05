@@ -214,7 +214,14 @@ namespace QuanLyNhaHangAdmin.Controllers.Admin
                 _db.DatBans.Add(model);
                 await _db.SaveChangesAsync();
 
-                await CapNhatTrangThaiBan(model.MaBan, model.TrangThai);
+                if (!string.IsNullOrEmpty(model.TrangThai))
+                {
+                    await CapNhatTrangThaiBan(model.MaBan, model.TrangThai);
+                }
+                else
+                {
+                    await CapNhatTrangThaiBan(model.MaBan, "Trống");
+                }
 
                 await tx.CommitAsync();
                 TempData["Success"] = "Tạo đặt bàn thành công!";
@@ -268,7 +275,14 @@ namespace QuanLyNhaHangAdmin.Controllers.Admin
                 if (old.MaBan != model.MaBan && old.MaBan != null)
                     await CapNhatTrangThaiBan(old.MaBan, "Hoàn thành");
 
-                await CapNhatTrangThaiBan(model.MaBan, model.TrangThai);
+                if (!string.IsNullOrEmpty(model.TrangThai))
+                {
+                    await CapNhatTrangThaiBan(model.MaBan, model.TrangThai);
+                }
+                else
+                {
+                    await CapNhatTrangThaiBan(model.MaBan, "Trống");
+                }
 
                 await tx.CommitAsync();
                 TempData["Success"] = "Cập nhật đặt bàn thành công!";

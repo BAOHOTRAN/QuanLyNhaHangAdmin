@@ -67,7 +67,7 @@ namespace QuanLyNhaHangAdmin.Controllers.Admin
 
             _context.Add(model);
             await _context.SaveChangesAsync();
-
+            TempData["Success"] = $"Thêm bàn {model.TenBan} thành công!";
             return RedirectToAction("DanhSachBanAn");
 
         }
@@ -101,6 +101,7 @@ namespace QuanLyNhaHangAdmin.Controllers.Admin
             {
                 _context.Update(model);
                 await _context.SaveChangesAsync();
+                TempData["Success"] = $"Cập nhật bàn {model.TenBan} thành công!";
             }
             catch
             {
@@ -140,7 +141,7 @@ namespace QuanLyNhaHangAdmin.Controllers.Admin
 
             _context.BanAns.Remove(ban);
             await _context.SaveChangesAsync();
-
+            TempData["Success"] = $"Xóa bàn {ban.TenBan} thành công!";
             return RedirectToAction("DanhSachBanAn");
 
         }

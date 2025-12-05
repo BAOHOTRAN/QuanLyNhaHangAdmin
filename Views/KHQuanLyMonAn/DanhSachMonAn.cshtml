@@ -1,38 +1,123 @@
-﻿@model List<QuanLyNhaHangAdmin.Models.MonAn>
+﻿@model IEnumerable<QuanLyNhaHangAdmin.Models.MonAn>
 
-@{
-    ViewData["Title"] = "Danh sách Món Ăn";
-}
+<h2>Danh Sách Món Ăn</h2>
 
-<form method="get" asp-action="DanhSachMonAn" class="mb-3 d-flex gap-2">
-    <input type="text" name="timKiem" placeholder="Nhập tên món..." class="form-control w-25" />
-    <button class="btn btn-primary">Tìm</button>
+<form method="get" class="mb-3 position-relative">
+
+    <input type="text"
+           id="txtSearch"
+           name="tenMon"
+           placeholder="Nhập tên món..."
+           value="@ViewBag.TenMon"
+           class="form-control mb-2" />
+
+    <div id="suggest-box"></div>
+
+    <input type="number"
+           name="giaTu"
+           placeholder="Giá từ"
+           value="@ViewBag.GiaTu"
+           class="form-control mb-2" />
+
+    <input type="number"
+           name="giaDen"
+           placeholder="Giá đến"
+           value="@ViewBag.GiaDen"
+           class="form-control mb-2" />
+
+    <select name="maLoai" class="form-control mb-2">
+        <option value="">-- Tất cả loại --</option>
+
+        @foreach (var lm in ViewBag.LoaiMonList)
+        {
+            var selected = (ViewBag.MaLoai != null && ViewBag.MaLoai == lm.MaLoai)
+            ? "selected"
+            : "";
+
+            <option value="@lm.MaLoai" selected="@selected">@lm.TenLoai</option>
+        }
+    </select>
+
+    <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
 </form>
 
-<table class="table table-bordered table-striped">
-    <thead class="table-dark">
+<table class="table table-bordered mt-3">
+    <thead>
         <tr>
-            <th>Mã món</th>
             <th>Tên món</th>
-            <th>Loại</th>
             <th>Giá</th>
-            <th>Hành động</th>
+            <th>Loại</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var mon in Model)
+        @foreach (var item in Model)
         {
             <tr>
-                <td>@mon.MaMon</td>
-                <td>@mon.TenMon</td>
-                <td>@mon.LoaiMonAn?.TenLoai</td>
-                <td>@mon.Gia.ToString("C0")</td>
-                <td>
-                    <a asp-controller="KHQuanLyMon" asp-action="KHChiTietMonAn" asp-route-id="@mon.MaMon" class="btn btn-info btn-sm">
-                        Chi tiết
-                    </a>
-                </td>
+                <td>@item.TenMon</td>
+                <td>@item.Gia.ToString("N0") đ</td>
+                <td>@item.LoaiMonAn?.TenLoai</td>
             </tr>
         }
     </tbody>
 </table>
+
+<!-- JQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $("#txtSearch").on("keyup", function () {
+
+            let keyword = $(this).val();
+
+            if (keyword.length < 1) {
+                $("#suggest-box").hide();
+                return;
+            }
+
+            $.ajax({
+                url: "/KHQuanLyMonAn/GoiY",
+                type: "GET",
+                data: { term: keyword },
+                success: function (data) {
+                    let html = "";
+
+                    data.forEach(item => {
+                        html += `<div class='suggest-item' onclick='choose("${item}")'>${item}</div>`;
+                    });
+
+                    $("#suggest-box").html(html).show();
+                }
+            });
+
+        });
+
+    });
+
+    function choose(text) {
+        $("#txtSearch").val(text);
+        $("#suggest-box").hide();
+    }
+</script>
+
+<style>
+    #suggest-box {
+        position: absolute;
+        background: white;
+        border: 1px solid #ccc;
+        width: 100%;
+        display: none;
+        z-index: 1000;
+        top: 38px;
+    }
+
+    .suggest-item {
+        padding: 8px 10px;
+        cursor: pointer;
+    }
+
+    .suggest-item:hover {
+        background: #f0f0f0;
+    }
+</style>

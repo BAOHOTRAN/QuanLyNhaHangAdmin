@@ -7,10 +7,10 @@ namespace QuanLyNhaHangAdmin.Models
     public class BanAn
     {
         [Key, MaxLength(5)]
-        public string MaBan { get; set; }
+        public string MaBan { get; set; } = string.Empty;
 
         [Required, MaxLength(50)]
-        public string TenBan { get; set; }
+        public string TenBan { get; set; } = string.Empty;
 
         [Required]
         public int SoCho { get; set; }

@@ -7,10 +7,10 @@ namespace QuanLyNhaHangAdmin.Models
     public class ChiTietHoaDon
     {
         [Key, Column(Order = 0), MaxLength(10)]
-        public string MaHD { get; set; }
+        public string MaHD { get; set; } = string.Empty;
 
         [Key, Column(Order = 1), MaxLength(5)]
-        public string MaMon { get; set; }
+        public string MaMon { get; set; } = string.Empty;
 
         [Required, Column(TypeName = "decimal(18,2)")]
         public decimal SoLuong { get; set; }
@@ -19,10 +19,9 @@ namespace QuanLyNhaHangAdmin.Models
         public decimal DonGia { get; set; }
 
         [ForeignKey("MaHD")]
-        public virtual HoaDon HoaDon { get; set; }
+        public virtual HoaDon? HoaDon { get; set; }
 
         [ForeignKey("MaMon")]
-        public virtual MonAn MonAn { get; set; }
+        public virtual MonAn? MonAn { get; set; }
     }
-
 }

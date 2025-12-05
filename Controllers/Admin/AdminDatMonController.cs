@@ -12,7 +12,7 @@ namespace QuanLyNhaHangAdmin.Controllers.Admin
     {
         private readonly QuanLyNhaHangContext _db;
         public AdminDatMonController(QuanLyNhaHangContext db) => _db = db;
-        private async Task LoadDropDown(DatMon model = null)
+        private async Task LoadDropDown(DatMon? model = null)
         {
             ViewBag.DatBanList = new SelectList(await _db.DatBans.ToListAsync(), "MaDatBan", "MaDatBan", model?.MaDatBan);
             ViewBag.MonAnList = new SelectList(await _db.MonAns.Include(m => m.LoaiMonAn).ToListAsync(), "MaMon", "TenMon", model?.MaMon);
