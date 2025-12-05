@@ -1,0 +1,36 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<QuanLyNhaHangAdmin.Models.BanAn>
+
+<h2>Danh sách QR của các bàn</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Mã bàn</th>
+            <th>Tên bàn</th>
+            <th>Mã QR</th>
+            <th>Tải xuống</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ban in Model)
+        {
+            <tr>
+                <td>@ban.MaBan</td>
+                <td>@ban.TenBan</td>
+                <td>
+                    <img src="/QR/GenerateQR?maBan=@ban.MaBan" width="150" />
+                </td>
+                @* <td>
+                    <a href="/QR/GenerateQR?maBan=@ban.MaBan" download="@ban.MaBan.png" class="btn btn-primary">
+                        Tải QR
+                    </a>
+                </td> *@
+            </tr>
+        }
+    </tbody>
+</table>

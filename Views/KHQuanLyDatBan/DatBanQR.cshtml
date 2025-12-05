@@ -1,0 +1,41 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model QuanLyNhaHangAdmin.Models.DatBan
+
+<h2>Đặt bàn qua QR</h2>
+
+<form asp-action="DatBanQR" method="post">
+
+    <input type="hidden" asp-for="MaBan" value="@ViewBag.MaBan" />
+
+    <div class="mb-3">
+        <label>Bàn</label>
+        <input type="text" class="form-control" value="@ViewBag.MaBan" readonly />
+    </div>
+
+    <div class="mb-3">
+        <label>Ngày đặt</label>
+        <input asp-for="NgayDat" type="date" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Giờ đặt</label>
+        <input asp-for="GioDat" type="time" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Số người</label>
+        <input asp-for="SoNguoi" type="number" min="1" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Ghi chú</label>
+        <input asp-for="GhiChu" class="form-control" />
+    </div>
+
+    <button class="btn btn-primary">Đặt bàn</button>
+    <a asp-action="DanhSachDatBan" class="btn btn-secondary">Quay lại</a>
+</form>

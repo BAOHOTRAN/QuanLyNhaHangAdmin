@@ -1,0 +1,45 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model QuanLyNhaHangAdmin.Models.DatBan
+
+<h2>Đặt bàn thủ công</h2>
+
+<form asp-action="DatBanThuCong" method="post">
+
+    <div class="mb-3">
+        <label>Bàn</label>
+        <select asp-for="MaBan" class="form-control">
+            <option value="">-- Chọn bàn --</option>
+            @foreach (var b in ViewBag.DanhSachBan)
+            {
+                <option value="@b.MaBan">@b.TenBan (@b.MaBan)</option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label>Ngày đặt</label>
+        <input asp-for="NgayDat" type="date" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Giờ đặt</label>
+        <input asp-for="GioDat" type="time" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Số người</label>
+        <input asp-for="SoNguoi" type="number" class="form-control" min="1" />
+    </div>
+
+    <div class="mb-3">
+        <label>Ghi chú</label>
+        <input asp-for="GhiChu" class="form-control" />
+    </div>
+
+    <button class="btn btn-success">Đặt bàn</button>
+    <a asp-action="DanhSachDatBan" class="btn btn-secondary">Quay lại</a>
+</form>

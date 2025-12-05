@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using QuanLyNhaHangAdmin.Data;
 using QuanLyNhaHangAdmin.Models;
+using QRCoder;
+using System.Text;
 
 namespace QuanLyNhaHangAdmin.Controllers.Admin
 {
@@ -42,7 +44,7 @@ namespace QuanLyNhaHangAdmin.Controllers.Admin
             return View(ban);
         }
 
-        public IActionResult Create()
+        public IActionResult ThemBanAn()
         {
             LoadTrangThai();
             return View();
@@ -50,7 +52,7 @@ namespace QuanLyNhaHangAdmin.Controllers.Admin
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(BanAn model)
+        public async Task<IActionResult> ThemBanAn(BanAn model)
         {
             LoadTrangThai();
 
@@ -70,7 +72,7 @@ namespace QuanLyNhaHangAdmin.Controllers.Admin
 
         }
 
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> SuaBanAn(string id)
         {
             if (id == null)
                 return NotFound();
@@ -85,7 +87,7 @@ namespace QuanLyNhaHangAdmin.Controllers.Admin
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, BanAn model)
+        public async Task<IActionResult> SuaBanAn(string id, BanAn model)
         {
             if (id != model.MaBan)
                 return NotFound();
@@ -109,7 +111,7 @@ namespace QuanLyNhaHangAdmin.Controllers.Admin
             return RedirectToAction("DanhSachBanAn");
         }
 
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> XoaBanAn(string id)
         {
             if (id == null)
                 return NotFound();
@@ -123,7 +125,7 @@ namespace QuanLyNhaHangAdmin.Controllers.Admin
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> XoaBanAnConfirmed(string id)
         {
             var ban = await _context.BanAns.FindAsync(id);
             if (ban == null)
@@ -141,6 +143,39 @@ namespace QuanLyNhaHangAdmin.Controllers.Admin
 
             return RedirectToAction("DanhSachBanAn");
 
+        }
+        public IActionResult TaoQR(string id)
+        {
+            if (id == null)
+                return NotFound();
+
+            // Tạo URL để khách quét sẽ mở trang thông tin bàn
+            string url = $"{Request.Scheme}://{Request.Host}/Admin/AdminBanAn/ThongTinBan/{id}";
+
+            // Tạo QR
+            QRCodeGenerator qrGenerator = new QRCodeGenerator();
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(url, QRCodeGenerator.ECCLevel.Q);
+            PngByteQRCode qrCode = new PngByteQRCode(qrCodeData);
+            byte[] qrBytes = qrCode.GetGraphic(20);
+
+            // Convert sang Base64 để hiển thị trên View
+            string qrBase64 = "data:image/png;base64," + Convert.ToBase64String(qrBytes);
+            ViewBag.QR = qrBase64;
+            ViewBag.MaBan = id;
+
+            return View();
+        }
+
+        public async Task<IActionResult> ThongTinBan(string id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var ban = await _context.BanAns.FirstOrDefaultAsync(x => x.MaBan == id);
+            if (ban == null)
+                return NotFound();
+
+            return View(ban);
         }
     }
 }

@@ -1,49 +1,45 @@
-﻿@model List<QuanLyNhaHangAdmin.Models.DatMon>
+﻿@model QuanLyNhaHangAdmin.Models.DatMon
 
-@{
-    ViewData["Title"] = "Danh sách đặt món";
-}
+<h2>Sửa đặt món</h2>
 
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success">@TempData["Success"]</div>
-}
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger">@TempData["Error"]</div>
-}
+<form asp-action="SuaDatMon" method="post">
 
-<a asp-action="ThemDatMon" class="btn btn-primary mb-3">Thêm đặt món</a>
+    <input type="hidden" asp-for="MaDatMon" />
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Mã đặt bàn</th>
-            <th>Món ăn</th>
-            <th>Số lượng</th>
-            <th>Ghi chú</th>
-            <th>Hành động</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.MaDatBan</td>
-                <td>@item.MonAn?.TenMon</td>
-                <td>@item.SoLuong</td>
-                <td>@item.GhiChu</td>
-                <td>
-                    <a asp-action="SuaDatMon" asp-route-id="@item.MaDatMon" class="btn btn-warning btn-sm">Sửa</a>
+    <div class="mb-3">
+        <label>Đặt bàn</label>
+        <select asp-for="MaDatBan" class="form-control">
+            @foreach (var db in ViewBag.DanhSachDatBan)
+            {
+                <option value="@db.MaDatBan" selected="@(db.MaDatBan == Model.MaDatBan)">
+                    @db.MaDatBan
+                </option>
+            }
+        </select>
+    </div>
 
-                    <form asp-action="XoaDatMon" asp-route-id="@item.MaDatMon" method="post"
-                          style="display:inline-block"
-                          onsubmit="return confirm('Bạn có chắc muốn xóa?');">
+    <div class="mb-3">
+        <label>Món ăn</label>
+        <select asp-for="MaMon" class="form-control">
+            @foreach (var mon in ViewBag.DanhSachMon)
+            {
+                <option value="@mon.MaMon" selected="@(mon.MaMon == Model.MaMon)">
+                    @mon.TenMon
+                </option>
+            }
+        </select>
+    </div>
 
-                        <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="mb-3">
+        <label>Số lượng</label>
+        <input asp-for="SoLuong" type="number" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Ghi chú</label>
+        <input asp-for="GhiChu" class="form-control" />
+    </div>
+
+    <button class="btn btn-primary">Cập nhật</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>

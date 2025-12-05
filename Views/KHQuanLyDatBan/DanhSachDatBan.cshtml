@@ -1,0 +1,36 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<QuanLyNhaHangAdmin.Models.DatBan>
+
+@{
+    ViewData["Title"] = "Danh sách đặt bàn";
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Mã</th>
+            <th>Bàn</th>
+            <th>Ngày</th>
+            <th>Giờ</th>
+            <th>Số người</th>
+            <th>Trạng thái</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaDatBan</td>
+                <td>@item.MaBan</td>
+                <td>@item.NgayDat.ToString("dd/MM/yyyy")</td>
+                <td>@item.GioDat</td>
+                <td>@item.SoNguoi</td>
+                <td>@item.TrangThai</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -66,6 +66,9 @@
                         <li class="nav-item">
                             <a asp-controller="AdminDatMon" asp-action="DanhSachDatMon" class="nav-link text-white">Quản lý Đặt Món</a>
                         </li>
+                         <li class="nav-item">
+                            <a asp-controller="AdminQR" asp-action="Index" class="nav-link text-white">Tao Ma Qr cho ban</a>
+                        </li>
                     }
 
                     @if (currentRole == "KhachHang")
@@ -88,6 +91,12 @@
 
                         <li class="nav-item">
                             <a asp-controller="KHQuanLyDatBan" asp-action="DanhSachDatBan" class="nav-link text-white">Quản lý Đặt Bàn</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="KHQuanLyDatBan" asp-action="DatBanThuCong" class="nav-link text-white">Đặt Bàn Thủ Công</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="KHQuanLyDatBan" asp-action="DatBanQR" class="nav-link text-white">Quét Mã QR Đặt Bàn</a>
                         </li>
                     }
 

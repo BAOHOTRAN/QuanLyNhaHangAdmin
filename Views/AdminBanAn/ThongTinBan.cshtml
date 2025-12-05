@@ -1,0 +1,27 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model QuanLyNhaHangAdmin.Models.BanAn
+
+<h2>Thông tin bàn @Model.MaBan</h2>
+
+<table class="table">
+    <tr>
+        <th>Mã bàn:</th>
+        <td>@Model.MaBan</td>
+    </tr>
+    <tr>
+        <th>Tên bàn:</th>
+        <td>@Model.TenBan</td>
+    </tr>
+    <tr>
+        <th>Số chỗ:</th>
+        <td>@Model.SoCho</td>
+    </tr>
+    <tr>
+        <th>Trạng thái:</th>
+        <td>@Model.TrangThai</td>
+    </tr>
+</table>
